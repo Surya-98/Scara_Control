@@ -1,0 +1,21 @@
+<launch>
+
+  <param name="robot_description" command="cat $(find custom_robot_description)/urdf/custom_scara.urdf"/>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find custom_robot_control)/config/custom_robot_control.yaml" command="load"/>
+
+  <!-- load the position controllers -->
+  <node name="controller_spawner_stopped" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/custom_scara" args="--stopped joint1_position_controller joint2_position_controller joint3_position_controller"/>
+  
+  <!-- load the and run velocity controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" 
+   output="screen" ns="/custom_scara" args="joint1_velocity_controller joint2_velocity_controller joint3_velocity_controller joint_state_controller"/>
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/custom_scara/joint_states" />
+  </node>
+
+</launch>

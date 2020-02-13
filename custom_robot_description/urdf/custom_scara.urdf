@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<robot name="custom_scara">
+
+  <!-- Controller Stuff -->
+  <gazebo>
+      <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+        <robotNamespace>/custom_scara</robotNamespace>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      </plugin>
+  </gazebo>
+
+<link name="world" />
+    <link name="base">
+        <collision>
+        <origin xyz="0 0 0.25" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="0.50" radius="0.50" />
+        </geometry>
+        </collision>
+
+        <visual>
+        <origin xyz="0 0 0.25" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="0.50" radius="0.50" />
+        </geometry>
+        <material name="orange"/>
+        </visual>
+
+        <inertial>
+        <origin xyz="0 0 0.25" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia
+            ixx="1.0" ixy="0.0" ixz="0.0"
+            iyy="1.0" iyz="0.0"
+            izz="1.0"/>
+        </inertial>
+    </link>
+    <joint name="joint0" type="fixed">
+        <parent link="world"/>
+        <child link="base"/>
+        <origin xyz = "0 0 0" rpy = "0 0 0" />
+    </joint>
+
+    <link name="link1_1">
+        <collision>
+        <origin xyz="0 0 1.75" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="3.50" radius="0.05" />
+        </geometry>
+        </collision>
+
+        <visual>
+        <origin xyz="0 0 1.75" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="3.50" radius="0.05" />
+        </geometry>
+        <material name="orange"/>
+        </visual>
+
+        <inertial>
+        <origin xyz="0 0 1.75" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia
+            ixx="1.0" ixy="0.0" ixz="0.0"
+            iyy="1.0" iyz="0.0"
+            izz="1.0"/>
+        </inertial>
+    </link>
+    <joint name="joint1" type="revolute">
+        <parent link="base"/>
+        <child link="link1_1"/>
+        <origin xyz = "0 0 0.5" rpy = "0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit effort = "10000.0" lower = "-3.14" upper = "3.14" velocity = "1000"/>
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+
+    <link name="link1_2">
+        <collision>
+        <origin xyz="0 0 1.75" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="3.50" radius="0.05" />
+        </geometry>
+        </collision>
+
+        <visual>
+        <origin xyz="0 0 1.75" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="3.50" radius="0.05" />
+        </geometry>
+        <material name="orange"/>
+        </visual>
+
+        <inertial>
+        <origin xyz="0 0 1.75" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia
+            ixx="1.0" ixy="0.0" ixz="0.0"
+            iyy="1.0" iyz="0.0"
+            izz="1.0"/>
+        </inertial>
+    </link>
+    <joint name="joint2" type="fixed">
+        <parent link="link1_1"/>
+        <child link="link1_2"/>
+        <origin xyz = "0 0 3.55" rpy = "1.57 0 0" />
+    </joint>
+    <link name="link2">
+        <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+            <cylinder length ="0.50" radius="0.50" />
+        </geometry>
+        </collision>
+
+        <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+            <cylinder length ="0.50" radius="0.50" />
+        </geometry>
+        <material name="orange"/>
+        </visual>
+
+        <inertial>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <mass value="1"/>
+        <inertia
+            ixx="1.0" ixy="0.0" ixz="0.0"
+            iyy="1.0" iyz="0.0"
+            izz="1.0"/>
+        </inertial>
+    </link>
+    <joint name="joint3" type="fixed">
+        <parent link="link1_2"/>
+        <child link="link2"/>
+        <origin xyz = " 0 0 4" rpy = "0 0 0" />
+    </joint>
+
+    <link name="link3">
+        <collision>
+        <origin xyz="0 0 2.0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="3.0" radius="0.05" />
+        </geometry>
+        </collision>
+
+        <visual>
+        <origin xyz="0 0 2.0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="3.0" radius="0.05" />
+        </geometry>
+        <material name="orange"/>
+        </visual>
+
+        <inertial>
+        <origin xyz="0 0 2.0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia
+            ixx="1.0" ixy="0.0" ixz="0.0"
+            iyy="1.0" iyz="0.0"
+            izz="1.0"/>
+        </inertial>
+    </link>
+    <joint name="joint4" type="revolute">
+        <parent link="link2"/>
+        <child link="link3"/>
+        <origin xyz = "0 0 0" rpy = "0 0 0" />
+        <axis xyz=" 0 1 0 " />
+        <limit effort = "10000.0" lower = "-3.14" upper = "3.14" velocity = "1000"/>
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+        <link name="link4">
+        <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size = "1 1 1" />
+        </geometry>
+        </collision>
+
+        <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size = "1 1 1" />
+        </geometry>
+        <material name="orange"/>
+        </visual>
+
+        <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia
+            ixx="1.0" ixy="0.0" ixz="0.0"
+            iyy="1.0" iyz="0.0"
+            izz="1.0"/>
+        </inertial>
+    </link>
+    <joint name="joint5" type="fixed">
+        <parent link="link3"/>
+        <child link="link4"/>
+        <origin xyz = "0 0 4" rpy = "0 0 0" />
+    </joint>
+    <link name="link5">
+        <collision>
+        <origin xyz="0 0 1" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="2.0" radius="0.05" />
+        </geometry>
+        </collision>
+
+        <visual>
+        <origin xyz="0 0 1" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length ="3.0" radius="0.05" />
+        </geometry>
+        <material name="orange"/>
+        </visual>
+
+        <inertial>
+        <origin xyz="0 0 2.0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia
+            ixx="1.0" ixy="0.0" ixz="0.0"
+            iyy="1.0" iyz="0.0"
+            izz="1.0"/>
+        </inertial>
+    </link>
+    <joint name="joint6" type="prismatic">
+        <parent link="link4"/>
+        <child link="link5"/>
+        <origin xyz = " 0 -0.5 0" rpy = "1.57 0 0" />
+        <axis xyz = " 0 0 1" />
+        <limit lower="-3" upper = "0" effort = "10000" velocity = "1000"/>
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+
+  <!-- Controller Stuff -->
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint4">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint6">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</robot>
